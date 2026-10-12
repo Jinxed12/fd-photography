@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FD Photography - Fashion Design Portfolio Hub">
+    <title>FD Photography Hub - Local & Live</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #17211f;
+            --muted: #65716c;
+            --paper: #f5f2eb;
+            --white: #fffdf8;
+            --line: #d9ddd5;
+            --coral: #e85d45;
+            --coral-dark: #b84032;
+            --mint: #dcece1;
+            --forest: #1d4037;
+            --shadow: 0 20px 55px rgba(33, 52, 44, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--paper);
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--forest);
+            color: var(--white);
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: 0;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .status {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .status-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .status-badge.live {
+            background: #3c8c68;
+            border-color: #66b98d;
+        }
+
+        .status-badge.local {
+            background: #4a7890;
+            border-color: #7eaec2;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: clamp(4rem, 10vw, 8rem) 2rem 5rem;
+            text-align: center;
+            background: radial-gradient(circle at 15% 15%, rgba(232, 93, 69, 0.2), transparent 30%), linear-gradient(135deg, var(--mint), var(--paper) 65%);
+        }
+
+        .hero h2 {
+            font-size: clamp(2.4rem, 6vw, 5.5rem);
+            margin-bottom: 1rem;
+            color: var(--forest);
+            font-weight: 400;
+            line-height: 1.03;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-container {
+            padding: 0 2rem 5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: -2rem;
+            position: relative;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--line);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 60px rgba(33, 52, 44, 0.18);
+            border-color: var(--coral);
+        }
+
+        .card-header {
+            background: var(--forest);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.65rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .card-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-body ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body li {
+            padding: 0.7rem 0;
+            display: flex;
+            align-items: center;
+            color: var(--ink);
+            font-size: 0.95rem;
+        }
+
+        .card-body li::before {
+            content: '✓';
+            color: var(--coral);
+            font-weight: 700;
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .card-footer {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            background: var(--coral);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 8px 18px rgba(184, 64, 50, 0.2);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(184, 64, 50, 0.3);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--coral-dark);
+            border: 2px solid var(--coral);
+        }
+
+        .btn-outline:hover {
+            background: var(--coral);
+            color: var(--white);
+        }
+
+        /* ===== STATUS SECTION ===== */
+        .status-section {
+            padding: 3rem 2rem;
+            background: var(--light);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .status-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .status-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .status-item p {
+            color: var(--secondary);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 4rem 2rem;
+        }
+
+        .features h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.05) 0%, rgba(255, 20, 147, 0.05) 100%);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.15) 0%, rgba(255, 20, 147, 0.15) 100%);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--secondary);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 3px solid var(--primary);
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 0;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .status {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .features h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card {
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="header-container">
+            <div>
+                <h1>✨ FD Photography Hub</h1>
+                <p>Fashion Design Portfolio Management</p>
+            </div>
+            <div class="status">
+                <span class="status-badge local">🖥️ Local Dev</span>
+                <span class="status-badge live">🌍 Live</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <h2>Welcome to FD Photography Hub</h2>
+            <p>Access your local development environment or view your live portfolio</p>
+        </div>
+    </section>
+
+    <!-- ===== CARDS ===== -->
+    <section class="cards-container">
+        <!-- LOCAL DEVELOPMENT CARD -->
+        <div class="card">
+            <div class="card-header">
+                <h3>💻 Local Development</h3>
+                <p>Development Environment</p>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Next.js 14 Development Server</li>
+                    <li>Firebase Integration</li>
+                    <li>Firestore Database</li>
+                    <li>Cloud Storage</li>
+                    <li>Real-time Testing</li>
+                    <li>Hot Reload</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="http://localhost:3000" class="btn" target="_blank" rel="noopener noreferrer">
+                    Open Development →
+                </a>
+            </div>
+        </div>
+
+        <!-- LIVE WEBSITE CARD -->
+        <div class="card">
+            <div class="card-header">
+                <h3>🌍 Live Website</h3>
+                <p>Production Environment</p>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Firebase Hosting</li>
+                    <li>Global CDN</li>
+                    <li>HTTPS Secured</li>
+                    <li>24/7 Available</li>
+                    <li>High Performance</li>
+                    <li>Auto-Scaling</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="https://fd-photography.web.app/" class="btn" target="_blank" rel="noopener noreferrer">
+                    View Live Portfolio →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATUS SECTION ===== -->
+    <section class="status-section">
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem; text-align: center;">System Status</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <h4>Frontend</h4>
+                    <p>Next.js 14 ✓</p>
+                </div>
+                <div class="status-item">
+                    <h4>Database</h4>
+                    <p>Firestore ✓</p>
+                </div>
+                <div class="status-item">
+                    <h4>Storage</h4>
+                    <p>Cloud Storage ✓</p>
+                </div>
+                <div class="status-item">
+                    <h4>Hosting</h4>
+                    <p>Firebase ✓</p>
+                </div>
+                <div class="status-item">
+                    <h4>SSL/HTTPS</h4>
+                    <p>Secured ✓</p>
+                </div>
+                <div class="status-item">
+                    <h4>CDN</h4>
+                    <p>Global ✓</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose FD Photography?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h4>Professional Design</h4>
+                    <p>Beautiful, modern portfolio showcasing your work</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Fast Performance</h4>
+                    <p>Global CDN ensures fast loading worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Secure</h4>
+                    <p>HTTPS encrypted and Firebase protected</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h4>Responsive</h4>
+                    <p>Works perfectly on all devices</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h4>Global Reach</h4>
+                    <p>Accessible worldwide 24/7</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h4>Forever Free</h4>
+                    <p>No cost - Firebase free tier forever</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 1rem;">FD Photography Portfolio</h3>
+            <p>Local: <a href="http://localhost:3000" style="color: #a9d8bc; text-decoration: none;">http://localhost:3000</a></p>
+            <p>Live: <a href="https://fd-photography.web.app/" style="color: #a9d8bc; text-decoration: none;">https://fd-photography.web.app</a></p>
+            <p style="margin-top: 1.5rem; opacity: 0.8;">&copy; 2024 FD Photography. All rights reserved. | Built with Next.js & Firebase</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth animations on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+
+        // Check localhost availability
+        fetch('http://localhost:3000', { mode: 'no-cors', cache: 'no-store' })
+            .then(() => {
+                const localBadge = document.querySelector('.status-badge.local');
+                localBadge.textContent = '🖥️ Local Dev - ONLINE';
+                localBadge.style.background = '#4CAF50';
+            })
+            .catch(() => {
+                const localBadge = document.querySelector('.status-badge.local');
+                localBadge.textContent = '🖥️ Local Dev - OFFLINE';
+                localBadge.style.background = '#f44336';
+            });
+    </script>
+</body>
+</html>

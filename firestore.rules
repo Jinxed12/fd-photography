@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public portfolio content is read through server routes backed by the
+    // Admin SDK. Keep portfolio writes disabled; account records below are
+    // the only documents clients can create directly.
+    match /looks/{lookId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /credits/{creditId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /images/{imageId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /exhibition/{exhibitionId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /users/{userId} {
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['uid', 'name', 'email', 'createdAt', 'role', 'status'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.role == 'user'
+        && request.resource.data.status == 'active';
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name'])
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.status == resource.data.status
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+      allow delete: if false;
+    }
+
+    match /signups/{signupId} {
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['uid', 'name', 'email', 'signupTime'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.signupTime is timestamp;
+      allow read, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
