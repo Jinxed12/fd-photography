@@ -1,4 +1,4 @@
-# 🎨 FD Photography Portfolio - Fashion Design Lookbook
+# FD PHOTOGRAPHY — Fashion Design Lookbook
 
 A complete, production-ready full-stack application for showcasing fashion design photography with a beautiful gallery, admin dashboard, and team credits section.
 
