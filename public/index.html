@@ -87,19 +87,33 @@
     .filter-btn { background: transparent; cursor: pointer; transition: all .25s; }
     .filter-btn:hover, .filter-btn.active { border-color: var(--accent); background: var(--accent); color: var(--bg); }
     .masonry { columns: 3; column-gap: 1rem; }
-    .masonry-item { position: relative; break-inside: avoid; margin-bottom: 1rem; overflow: hidden; border-radius: var(--radius); cursor: pointer; animation: fadeUp .6s ease both; }
+    .masonry-item { position: relative; display: block; width: 100%; padding: 0; border: 0; break-inside: avoid; margin-bottom: 1rem; overflow: hidden; border-radius: var(--radius); background: var(--bg-card); text-align: left; cursor: pointer; animation: fadeUp .6s ease both; }
     .masonry-item img { width: 100%; transition: transform .5s; }
     .masonry-item:hover img { transform: scale(1.04); }
+    .masonry-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     .masonry-item .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem; background: linear-gradient(transparent 40%, rgba(0,0,0,.75)); opacity: 0; transition: opacity .3s; }
     .masonry-item:hover .overlay, .masonry-item:focus-within .overlay { opacity: 1; }
+    .masonry-item:focus-visible .overlay { opacity: 1; }
     .overlay .title { font-family: var(--font-display); font-size: .95rem; }
     .overlay .cat { color: var(--accent); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .lightbox { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 2rem; background: rgba(0,0,0,.92); }
+    .lightbox { position: fixed; inset: 0; z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 2rem; background: rgba(0,0,0,.94); }
     .lightbox.open { display: flex; }
-    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius); }
-    .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; border: 0; background: none; color: white; font-size: 2rem; cursor: pointer; }
-    .lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: var(--text-muted); text-align: center; font-size: .85rem; }
+    .lightbox-stage { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; width: min(100%, 1120px); min-height: 0; padding: 1rem 4rem; }
+    .lightbox-stage > img { max-width: 100%; max-height: 68vh; border-radius: var(--radius); object-fit: contain; }
+    .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; z-index: 1; border: 0; background: none; color: white; font-size: 2rem; cursor: pointer; }
+    .lightbox-nav { position: absolute; top: 50%; display: grid; width: 46px; height: 46px; place-items: center; transform: translateY(-50%); border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: rgba(20,20,20,.85); color: white; cursor: pointer; transition: border-color .2s, color .2s; }
+    .lightbox-nav:hover, .lightbox-nav:focus-visible { border-color: var(--accent); color: var(--accent); }
+    .lightbox-prev { left: .5rem; }
+    .lightbox-next { right: .5rem; }
+    .lightbox-info { display: flex; align-items: end; justify-content: space-between; gap: 1rem; width: min(100%, 960px); }
+    .lightbox-collection { margin: 0 0 .2rem; color: var(--accent); font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; }
+    .lightbox-caption { color: var(--text); font: 1.15rem var(--font-display); }
+    .lightbox-counter { color: var(--text-muted); font: .75rem var(--font-body); white-space: nowrap; }
+    .lightbox-thumbnails { display: flex; justify-content: center; gap: .55rem; width: min(100%, 960px); padding: .25rem 0; overflow-x: auto; }
+    .lightbox-thumbnail { flex: 0 0 64px; width: 64px; height: 64px; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; background: var(--bg-card); opacity: .55; cursor: pointer; }
+    .lightbox-thumbnail[aria-current="true"] { border-color: var(--accent); opacity: 1; }
+    .lightbox-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
     .exhibit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: var(--max-width); margin: 0 auto; }
     .exhibit-card { padding: 1.75rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-card); text-align: center; }
     .exhibit-card i { margin-bottom: 1rem; color: var(--accent); font-size: 1.8rem; }
@@ -116,8 +130,14 @@
       .nav-links { display: none; }
       .burger { display: block; }
       nav.open .nav-links { position: absolute; top: var(--nav-h); right: 0; left: 0; display: flex; flex-direction: column; padding: 1.5rem; border-bottom: 1px solid var(--line); background: var(--bg-soft); }
-      .lightbox { padding: 1rem; }
-      .lightbox-close { top: .5rem; right: 1rem; }
+      .lightbox { gap: .65rem; padding: 1rem; }
+      .lightbox-stage { padding: 2rem 2.5rem; }
+      .lightbox-stage > img { max-height: 62vh; }
+      .lightbox-close { top: .5rem; right: .75rem; }
+      .lightbox-nav { width: 38px; height: 38px; }
+      .lightbox-prev { left: .15rem; }
+      .lightbox-next { right: .15rem; }
+      .lightbox-thumbnail { flex-basis: 54px; width: 54px; height: 54px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
   </style>
@@ -129,7 +149,7 @@
       <i class="fas fa-bars" aria-hidden="true"></i>
     </button>
     <ul class="nav-links">
-      <li><a href="#project-cards">Project</a></li>
+      <li><a href="#hero">Home</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#exhibit">Exhibition</a></li>
@@ -178,41 +198,32 @@
     <div class="gallery-container">
       <span class="section-tag">Gallery</span>
       <h2 class="section-title">Lookbook Picks</h2>
-      <p class="section-sub">Click any image to view full-screen. Replace the sample images with your final edits.</p>
+      <p class="section-sub">Explore each photo story. Open a photograph to browse the rest of its collection.</p>
       <div class="filters" role="group" aria-label="Filter gallery">
         <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
         <button class="filter-btn" type="button" data-filter="editorial" aria-pressed="false">Editorial</button>
         <button class="filter-btn" type="button" data-filter="portrait" aria-pressed="false">Portrait</button>
         <button class="filter-btn" type="button" data-filter="lookbook" aria-pressed="false">Lookbook</button>
-        <button class="filter-btn" type="button" data-filter="bts" aria-pressed="false">Behind Scenes</button>
+        <button class="filter-btn" type="button" data-filter="objects" aria-pressed="false">Objects</button>
       </div>
       <div class="masonry" id="masonry">
-        <button class="masonry-item" type="button" data-cat="lookbook" aria-label="View Silhouette in Noir">
-          <img src="https://picsum.photos/600/800?random=1" alt="Fashion lookbook silhouette" loading="lazy" /><span class="overlay"><span class="cat">Lookbook</span><span class="title">Silhouette in Noir</span></span>
+        <button class="masonry-item" type="button" data-cat="editorial" data-album="editorial-stories" data-album-title="Editorial Stories" aria-label="Open After Hours in the Editorial Stories collection">
+          <img src="/images/after-hours.jpg" alt="Model in a red sweatshirt against a white wall" loading="lazy" /><span class="overlay"><span class="cat">Editorial Stories · 3 photos</span><span class="title">After Hours</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="editorial" aria-label="View Editorial Close-Up">
-          <img src="https://picsum.photos/600/700?random=2" alt="Editorial fashion close-up" loading="lazy" /><span class="overlay"><span class="cat">Editorial</span><span class="title">Editorial Close-Up</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="color-and-form" data-album-title="Color &amp; Form" aria-label="Open Soft Form in the Color and Form collection">
+          <img src="/images/soft-form.jpg" alt="Floral fashion photographed beside the sea" loading="lazy" /><span class="overlay"><span class="cat">Color &amp; Form · 3 photos</span><span class="title">Soft Form</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="portrait" aria-label="View Beauty Study">
-          <img src="https://picsum.photos/600/900?random=3" alt="Fashion beauty portrait" loading="lazy" /><span class="overlay"><span class="cat">Portrait</span><span class="title">Beauty Study</span></span>
+        <button class="masonry-item" type="button" data-cat="portrait" data-album="editorial-stories" data-album-title="Editorial Stories" aria-label="Open Street Study in the Editorial Stories collection">
+          <img src="/images/street-study.jpg" alt="Street fashion portrait against a deep teal sky" loading="lazy" /><span class="overlay"><span class="cat">Editorial Stories · 3 photos</span><span class="title">Street Study</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="bts" aria-label="View Lighting Setup">
-          <img src="https://picsum.photos/600/650?random=4" alt="Behind the scenes lighting setup" loading="lazy" /><span class="overlay"><span class="cat">BTS</span><span class="title">Lighting Setup</span></span>
+        <button class="masonry-item" type="button" data-cat="objects" data-album="color-and-form" data-album-title="Color &amp; Form" aria-label="Open Color Study in the Color and Form collection">
+          <img src="/images/color-study.jpg" alt="Red running shoe on a vivid red background" loading="lazy" /><span class="overlay"><span class="cat">Color &amp; Form · 3 photos</span><span class="title">Color Study</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="editorial" aria-label="View Monochrome Editorial">
-          <img src="https://picsum.photos/600/750?random=5" alt="Monochrome fashion editorial" loading="lazy" /><span class="overlay"><span class="cat">Editorial</span><span class="title">Monochrome Editorial</span></span>
+        <button class="masonry-item" type="button" data-cat="editorial" data-album="editorial-stories" data-album-title="Editorial Stories" aria-label="Open Editorial in the Editorial Stories collection">
+          <img src="/images/editorial.jpg" alt="Model in a blue coat in front of Milan Cathedral" loading="lazy" /><span class="overlay"><span class="cat">Editorial Stories · 3 photos</span><span class="title">Editorial</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="lookbook" aria-label="View Seasonal Drop">
-          <img src="https://picsum.photos/600/850?random=6" alt="Seasonal fashion collection" loading="lazy" /><span class="overlay"><span class="cat">Lookbook</span><span class="title">Seasonal Drop</span></span>
-        </button>
-        <button class="masonry-item" type="button" data-cat="bts" aria-label="View Hair and Makeup">
-          <img src="https://picsum.photos/600/600?random=7" alt="Behind the scenes hair and makeup" loading="lazy" /><span class="overlay"><span class="cat">BTS</span><span class="title">Hair &amp; Makeup</span></span>
-        </button>
-        <button class="masonry-item" type="button" data-cat="portrait" aria-label="View Expression Study">
-          <img src="https://picsum.photos/600/950?random=8" alt="Fashion portrait expression study" loading="lazy" /><span class="overlay"><span class="cat">Portrait</span><span class="title">Expression Study</span></span>
-        </button>
-        <button class="masonry-item" type="button" data-cat="lookbook" aria-label="View Full Look">
-          <img src="https://picsum.photos/600/780?random=9" alt="Full fashion look" loading="lazy" /><span class="overlay"><span class="cat">Lookbook</span><span class="title">Full Look</span></span>
+        <button class="masonry-item" type="button" data-cat="portrait" data-album="color-and-form" data-album-title="Color &amp; Form" aria-label="Open In Motion in the Color and Form collection">
+          <img src="/images/in-motion.jpg" alt="Model in a yellow outfit under a clear blue sky" loading="lazy" /><span class="overlay"><span class="cat">Color &amp; Form · 3 photos</span><span class="title">In Motion</span></span>
         </button>
       </div>
     </div>
@@ -244,10 +255,18 @@
 
   <footer><p>FD PHOTOGRAPHY &copy; 2026 — BAJMC × FD Collaboration</p></footer>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button class="lightbox-close" type="button" aria-label="Close image preview"><i class="fas fa-times" aria-hidden="true"></i></button>
-    <img id="lightbox-img" src="" alt="" />
-    <div class="lightbox-caption" id="lightbox-caption"></div>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo collection" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Close photo collection"><i class="fas fa-times" aria-hidden="true"></i></button>
+    <div class="lightbox-stage">
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous photo"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+      <img id="lightbox-img" src="" alt="" />
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next photo"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="lightbox-info">
+      <div><p class="lightbox-collection" id="lightbox-collection"></p><p class="lightbox-caption" id="lightbox-caption"></p></div>
+      <p class="lightbox-counter" id="lightbox-counter" aria-live="polite"></p>
+    </div>
+    <div class="lightbox-thumbnails" id="lightbox-thumbnails" aria-label="Photos in this collection"></div>
   </div>
 
   <script>
@@ -255,9 +274,70 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxCollection = document.getElementById('lightbox-collection');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxThumbnails = document.getElementById('lightbox-thumbnails');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.masonry-item');
     const burger = document.querySelector('.burger');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    let activeAlbum = [];
+    let activePhotoIndex = 0;
+    let lastFocusedPhoto = null;
+
+    function showAlbumPhoto(index) {
+      if (!activeAlbum.length) return;
+
+      activePhotoIndex = (index + activeAlbum.length) % activeAlbum.length;
+      const photo = activeAlbum[activePhotoIndex];
+      lightboxImage.src = photo.src;
+      lightboxImage.alt = photo.alt;
+      lightboxCaption.textContent = photo.title;
+      lightboxCollection.textContent = photo.collection;
+      lightboxCounter.textContent = `${activePhotoIndex + 1} / ${activeAlbum.length}`;
+
+      [...lightboxThumbnails.children].forEach((thumbnail, thumbnailIndex) => {
+        if (thumbnailIndex === activePhotoIndex) {
+          thumbnail.setAttribute('aria-current', 'true');
+        } else {
+          thumbnail.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function openAlbum(card) {
+      const albumId = card.dataset.album;
+      const albumCards = [...galleryItems].filter((item) => item.dataset.album === albumId);
+      activeAlbum = albumCards.map((item) => ({
+        src: item.querySelector('img').src,
+        alt: item.querySelector('img').alt,
+        title: item.querySelector('.title').textContent,
+        collection: item.dataset.albumTitle,
+      }));
+      activePhotoIndex = albumCards.indexOf(card);
+      lastFocusedPhoto = card;
+      lightboxThumbnails.replaceChildren();
+
+      activeAlbum.forEach((photo, index) => {
+        const thumbnail = document.createElement('button');
+        thumbnail.type = 'button';
+        thumbnail.className = 'lightbox-thumbnail';
+        thumbnail.setAttribute('aria-label', `View ${photo.title}`);
+        const image = document.createElement('img');
+        image.src = photo.src;
+        image.alt = '';
+        image.loading = 'lazy';
+        thumbnail.append(image);
+        thumbnail.addEventListener('click', () => showAlbumPhoto(index));
+        lightboxThumbnails.append(thumbnail);
+      });
+
+      showAlbumPhoto(activePhotoIndex);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    }
 
     burger.addEventListener('click', () => {
       const isOpen = navbar.classList.toggle('open');
@@ -273,26 +353,31 @@
 
     galleryItems.forEach((card) => {
       card.addEventListener('click', () => {
-        const image = card.querySelector('img');
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt;
-        lightboxCaption.textContent = card.querySelector('.title').textContent;
-        lightbox.classList.add('open');
-        document.querySelector('.lightbox-close').focus();
+        openAlbum(card);
       });
     });
 
     function closeLightbox() {
       lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
       lightboxImage.src = '';
+      lightboxThumbnails.replaceChildren();
+      activeAlbum = [];
+      document.body.style.overflow = '';
+      if (lastFocusedPhoto) lastFocusedPhoto.focus();
     }
 
-    document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.querySelector('.lightbox-prev').addEventListener('click', () => showAlbumPhoto(activePhotoIndex - 1));
+    document.querySelector('.lightbox-next').addEventListener('click', () => showAlbumPhoto(activePhotoIndex + 1));
     lightbox.addEventListener('click', (event) => {
       if (event.target === lightbox) closeLightbox();
     });
     document.addEventListener('keydown', (event) => {
+      if (!lightbox.classList.contains('open')) return;
       if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') showAlbumPhoto(activePhotoIndex - 1);
+      if (event.key === 'ArrowRight') showAlbumPhoto(activePhotoIndex + 1);
     });
 
     filterButtons.forEach((button) => {
