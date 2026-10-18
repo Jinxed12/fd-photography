@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff">
+  <title>Log in — FD Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --bg: #fff; --panel: #fff; --text: #111; --muted: #666; --accent: #b76e79; --line: #eee; --error: #a83e45; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 2rem 1rem; background: var(--bg); color: var(--text); font-family: Montserrat, "Segoe UI", sans-serif; }
+    main { width: min(100%, 28rem); padding: clamp(1.5rem, 6vw, 2.5rem); border: 1px solid var(--line); border-radius: 4px; background: var(--panel); box-shadow: 0 1rem 3rem rgba(17,17,17,.06); }
+    .brand { margin: 0 0 .6rem; color: var(--accent); font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-align: center; text-transform: uppercase; }
+    h1 { margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: clamp(2rem, 8vw, 2.6rem); font-weight: 400; text-align: center; }
+    .intro { margin: .75rem 0 2rem; color: var(--muted); line-height: 1.6; text-align: center; }
+    form { display: grid; gap: 1rem; }
+    label { display: grid; gap: .45rem; color: var(--muted); font-size: .85rem; }
+    input { width: 100%; min-height: 2.9rem; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--text); font: inherit; }
+    input:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    button { min-height: 3rem; margin-top: .3rem; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: #fff; cursor: pointer; font: inherit; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; transition: background .2s; }
+    button:not(:disabled):hover { background: #8e4d57; }
+    button:disabled { cursor: wait; opacity: .65; }
+    #message { min-height: 1.3rem; margin: 1rem 0 0; color: var(--error); font-size: .9rem; line-height: 1.5; }
+    #message.success { color: #795057; }
+    .account-link { margin: 1rem 0 0; color: var(--muted); font-size: .9rem; text-align: center; }
+    .account-link a, .back { color: var(--accent); text-decoration: none; }
+    .account-link a:hover, .back:hover { text-decoration: underline; }
+    .back { display: block; margin-top: 1rem; color: var(--muted); font-size: .9rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="brand">FD Lookbook</p>
+    <h1>Welcome back</h1>
+    <p class="intro">Log in to your lookbook account.</p>
+    <form id="login-form">
+      <label for="email">Email
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </label>
+      <label for="password">Password
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <button id="submit-button" type="submit">Log in</button>
+    </form>
+    <p id="message" role="status" aria-live="polite"></p>
+    <p class="account-link">Need an account? <a href="/signup">Sign up</a></p>
+    <a class="back" href="/">Back to home</a>
+  </main>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+
+    const form = document.querySelector('#login-form');
+    const button = document.querySelector('#submit-button');
+    const message = document.querySelector('#message');
+    const params = new URLSearchParams(window.location.search);
+
+    function setMessage(text, success = false) {
+      message.textContent = text;
+      message.classList.toggle('success', success);
+    }
+
+    function getErrorMessage(code) {
+      if (code === 'auth/invalid-credential' || code === 'auth/user-not-found' || code === 'auth/wrong-password') {
+        return 'The email or password is incorrect.';
+      }
+      if (code === 'auth/invalid-email') return 'Enter a valid email address.';
+      return 'Unable to log in. Please try again.';
+    }
+
+    let auth;
+    try {
+      const configResponse = await fetch('/__/firebase/init.json');
+      if (!configResponse.ok) throw new Error(`Firebase config request failed: ${configResponse.status}`);
+      auth = getAuth(initializeApp(await configResponse.json()));
+      onAuthStateChanged(auth, (user) => {
+        if (user) window.location.replace('/');
+      });
+    } catch (error) {
+      console.error('Unable to initialize Firebase login:', error);
+      form.querySelectorAll('input, button').forEach((control) => { control.disabled = true; });
+      setMessage('Account services could not be initialized. Please try again later.');
+    }
+
+    if (params.get('created') === '1') {
+      setMessage('Account created. You can log in now.', true);
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!auth) return;
+
+      const data = new FormData(form);
+      const email = String(data.get('email')).trim().toLowerCase();
+      const password = String(data.get('password'));
+
+      button.disabled = true;
+      button.textContent = 'Logging in...';
+      setMessage('');
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.replace('/');
+      } catch (error) {
+        console.error('Login error:', error);
+        setMessage(getErrorMessage(error.code));
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Log in';
+      }
+    });
+  </script>
+</body>
+</html>

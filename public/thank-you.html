@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Thank you for reaching out to FD PHOTOGRAPHY." />
+  <title>Thank You | FD PHOTOGRAPHY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      color-scheme: light;
+      --bg: #fff;
+      --text: #111;
+      --muted: #666;
+      --accent: #b76e79;
+      --line: #eee;
+      --display: 'Playfair Display', Georgia, serif;
+      --body: 'Montserrat', system-ui, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.6;
+    }
+    main { width: min(100%, 620px); text-align: center; }
+    .brand { display: inline-block; margin-bottom: 3rem; font: 400 1.05rem var(--display); letter-spacing: .08em; }
+    .brand span { color: var(--accent); }
+    .check {
+      display: grid;
+      width: 68px;
+      height: 68px;
+      place-items: center;
+      margin: 0 auto 1.75rem;
+      border: 1px solid rgba(183,110,121,.3);
+      border-radius: 50%;
+      background: rgba(183,110,121,.08);
+      color: var(--accent);
+      font-size: 1.7rem;
+    }
+    .eyebrow { margin-bottom: .65rem; color: var(--accent); font-size: .68rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    h1 { margin-bottom: 1rem; font: 400 clamp(2.5rem, 8vw, 4rem)/1.1 var(--display); }
+    .message { margin: 0 auto; max-width: 480px; color: var(--muted); }
+    .notice { margin: 1.25rem auto 0; max-width: 460px; color: var(--muted); font-size: .78rem; }
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; }
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: .7rem 1.25rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      color: #fff;
+      background: var(--accent);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: background .2s, color .2s;
+    }
+    .button:hover, .button:focus-visible { background: #8e4d57; color: #fff; }
+    .button.secondary { border-color: var(--line); background: transparent; color: var(--text); }
+    .button.secondary:hover, .button.secondary:focus-visible { border-color: var(--accent); color: var(--accent); }
+    .button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="brand" href="index.html" aria-label="FD PHOTOGRAPHY home">FD <span>PHOTOGRAPHY</span></a>
+    <div class="check" aria-hidden="true">✓</div>
+    <p class="eyebrow">FD PHOTOGRAPHY</p>
+    <h1>Thank you!</h1>
+    <p class="message">Thanks for getting in touch. We appreciate your interest in collaborating with us.</p>
+    <p class="notice">This contact form is a demo and does not send or store messages yet.</p>
+    <div class="actions">
+      <a class="button" href="index.html#gallery">Explore the gallery</a>
+      <a class="button secondary" href="index.html">Back to home</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -7,56 +7,66 @@
   <title>FD PHOTOGRAPHY</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0c0c0c;
-      --bg-soft: #161616;
-      --bg-card: #1e1e1e;
-      --text: #f5f0eb;
-      --text-muted: #9a9490;
-      --accent: #c9a86c;
-      --line: #2a2624;
-      --radius: 8px;
+      --bg: #fff;
+      --bg-soft: #fafafa;
+      --bg-card: #fff;
+      --text: #111;
+      --text-muted: #666;
+      --accent: #b76e79;
+      --line: #eee;
+      --radius: 4px;
       --font-display: 'Playfair Display', Georgia, serif;
-      --font-body: 'Inter', system-ui, sans-serif;
+      --font-body: 'Montserrat', system-ui, sans-serif;
       --max-width: 1280px;
       --nav-h: 64px;
     }
     html { scroll-behavior: smooth; font-size: 16px; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.7; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     button, input, textarea { font: inherit; }
     nav {
       position: fixed; inset: 0 0 auto; z-index: 1000; height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1.25rem, 3vw, 2.5rem); background: rgba(12,12,12,.85);
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem); background: rgba(255,255,255,.92);
       backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); transition: box-shadow .25s;
     }
     .nav-logo { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: .08em; text-transform: uppercase; }
     .nav-logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links { display: flex; align-items: center; gap: 1rem; list-style: none; }
     .nav-links a { color: var(--text-muted); font-size: .8rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; transition: color .25s; }
     .nav-links a:hover, .nav-links a:focus { color: var(--accent); }
+    .nav-account { position: relative; }
+    .nav-account-toggle, .nav-logout { padding: .4rem .65rem; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--text-muted); font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: border-color .2s, color .2s; }
+    .nav-account-toggle::after { display: inline-block; width: 0; height: 0; margin-left: .5rem; border: 4px solid transparent; border-top-color: currentColor; content: ''; transform: translateY(2px); }
+    .nav-account-toggle:hover, .nav-account-toggle:focus-visible, .nav-logout:hover, .nav-logout:focus-visible { border-color: var(--accent); color: var(--accent); }
+    .nav-account-menu { position: absolute; top: calc(100% + .6rem); right: 0; z-index: 20; display: grid; min-width: 220px; gap: .75rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); box-shadow: 0 10px 28px rgba(17,17,17,.12); }
+    .nav-account-menu[hidden] { display: none; }
+    .nav-account-greeting { color: var(--text-muted); font-size: .78rem; }
+    .nav-logout { justify-self: start; }
+    .nav-logout:disabled { cursor: not-allowed; opacity: .55; }
+    .nav-error { color: #a12b36; font-size: .68rem; }
     .burger { display: none; background: none; border: 0; color: var(--text); font-size: 1.4rem; cursor: pointer; }
     .hero {
-      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
       padding: calc(var(--nav-h) + 2rem) clamp(1.25rem, 3vw, 2.5rem) 2rem;
-      position: relative; background: radial-gradient(ellipse at 50% 30%, #1a1510 0%, var(--bg) 70%); overflow: hidden;
+      position: relative; background: var(--bg); overflow: hidden; text-align: center;
     }
     .hero::after {
       content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23ffffff' opacity='.03'/%3E%3C/svg%3E");
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23b76e79' opacity='.06'/%3E%3C/svg%3E");
     }
-    .hero-content { position: relative; z-index: 1; max-width: 740px; }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
     .hero-label, .section-tag { color: var(--accent); font-size: .68rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; margin-bottom: .75rem; }
     .hero h1 { font: 700 clamp(2.6rem, 6.5vw, 4.8rem)/1.05 var(--font-display); margin-bottom: 1.25rem; }
     .hero h1 em { color: var(--accent); }
-    .hero-desc { max-width: 540px; margin-bottom: 2rem; color: var(--text-muted); font-size: 1.05rem; }
-    .hero-tags, .filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .hero-desc { max-width: 650px; margin: 0 auto 2rem; color: var(--text-muted); font-size: 1.05rem; }
+    .hero-tags, .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
     .tag, .filter-btn { padding: .4rem .85rem; border: 1px solid var(--line); border-radius: 100px; color: var(--text-muted); font-size: .7rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
     .tag { transition: all .25s; }
     .tag:hover { border-color: var(--accent); color: var(--accent); }
@@ -66,16 +76,16 @@
     .section-sub { max-width: 600px; margin-bottom: 2.5rem; color: var(--text-muted); font-size: .95rem; }
     .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
     #project-cards { scroll-margin-top: calc(var(--nav-h) + 1.5rem); }
-    .about-card { min-height: 230px; padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-card); transition: border-color .3s, background .3s, transform .3s, box-shadow .3s; }
-    .about-card:hover, .about-card:focus-within { border-color: var(--accent); background: #22201d; box-shadow: 0 14px 35px rgba(0,0,0,.22); }
+    .about-card { min-height: 230px; padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-card); box-shadow: 0 10px 30px rgba(17,17,17,.04); transition: border-color .3s, background .3s, transform .3s, box-shadow .3s; }
+    .about-card:hover, .about-card:focus-within { border-color: var(--accent); background: #fff; box-shadow: 0 14px 35px rgba(17,17,17,.12); }
     .about-card h3, .team-col h3, .exhibit-card h4 { margin-bottom: .5rem; font-family: var(--font-display); }
     .about-card p, .exhibit-card p { color: var(--text-muted); font-size: .88rem; }
-    .about-card .icon { display: grid; width: 42px; height: 42px; place-items: center; margin-bottom: 1rem; border: 1px solid rgba(201,168,108,.25); border-radius: 50%; background: rgba(201,168,108,.08); color: var(--accent); font-size: 1.05rem; }
+    .about-card .icon { display: grid; width: 42px; height: 42px; place-items: center; margin-bottom: 1rem; border: 1px solid rgba(183,110,121,.22); border-radius: 50%; background: rgba(183,110,121,.08); color: var(--accent); font-size: 1.05rem; }
     .about-card:focus-within { outline: 2px solid var(--accent); outline-offset: 3px; }
     .team-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: var(--max-width); margin: 0 auto; }
-    .team-col { padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); }
-    .team-col.bajmc { background: linear-gradient(135deg, #141820, #1a1410); }
-    .team-col.fd { background: linear-gradient(135deg, #141018, #1a1418); }
+    .team-col { padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-card); }
+    .team-col.bajmc { background: linear-gradient(135deg, #fff, #fafafa); }
+    .team-col.fd { background: linear-gradient(135deg, #fff, #fafafa); }
     .team-col h3 { font-size: 1.3rem; }
     .team-col .dept { margin-bottom: 1.25rem; color: var(--text-muted); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; }
     .team-col ul { display: flex; flex-direction: column; gap: .6rem; list-style: none; }
@@ -87,28 +97,29 @@
     .filter-btn { background: transparent; cursor: pointer; transition: all .25s; }
     .filter-btn:hover, .filter-btn.active { border-color: var(--accent); background: var(--accent); color: var(--bg); }
     .masonry { columns: 3; column-gap: 1rem; }
-    .masonry-item { position: relative; display: block; width: 100%; padding: 0; border: 0; break-inside: avoid; margin-bottom: 1rem; overflow: hidden; border-radius: var(--radius); background: var(--bg-card); text-align: left; cursor: pointer; animation: fadeUp .6s ease both; }
+    .masonry-item { position: relative; display: block; width: 100%; padding: 0; border: 0; break-inside: avoid; margin-bottom: 1rem; overflow: hidden; border-radius: var(--radius); background: var(--bg-card); box-shadow: 0 8px 24px rgba(17,17,17,.09); text-align: left; cursor: pointer; animation: fadeUp .6s ease both; }
     .masonry-item img { width: 100%; transition: transform .5s; }
     .masonry-item:hover img { transform: scale(1.04); }
     .masonry-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     .masonry-item .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem; background: linear-gradient(transparent 40%, rgba(0,0,0,.75)); opacity: 0; transition: opacity .3s; }
     .masonry-item:hover .overlay, .masonry-item:focus-within .overlay { opacity: 1; }
     .masonry-item:focus-visible .overlay { opacity: 1; }
-    .overlay .title { font-family: var(--font-display); font-size: .95rem; }
+    .overlay .title { color: #fff; font-family: var(--font-display); font-size: .95rem; }
     .overlay .cat { color: var(--accent); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .lightbox { position: fixed; inset: 0; z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 2rem; background: rgba(0,0,0,.94); }
+    .lightbox { position: fixed; inset: 0; z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 2rem; background: rgba(35,25,25,.96); }
     .lightbox.open { display: flex; }
     .lightbox-stage { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; width: min(100%, 1120px); min-height: 0; padding: 1rem 4rem; }
     .lightbox-stage > img { max-width: 100%; max-height: 68vh; border-radius: var(--radius); object-fit: contain; }
     .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; z-index: 1; border: 0; background: none; color: white; font-size: 2rem; cursor: pointer; }
-    .lightbox-nav { position: absolute; top: 50%; display: grid; width: 46px; height: 46px; place-items: center; transform: translateY(-50%); border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: rgba(20,20,20,.85); color: white; cursor: pointer; transition: border-color .2s, color .2s; }
-    .lightbox-nav:hover, .lightbox-nav:focus-visible { border-color: var(--accent); color: var(--accent); }
+    .lightbox-nav { position: absolute; top: 50%; display: grid; width: 46px; height: 46px; place-items: center; transform: translateY(-50%); border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(35,25,25,.85); color: white; cursor: pointer; transition: border-color .2s, color .2s; }
+    .lightbox-nav:not(:disabled):hover, .lightbox-nav:not(:disabled):focus-visible { border-color: var(--accent); color: var(--accent); }
+    .lightbox-nav:disabled { cursor: not-allowed; opacity: .35; }
     .lightbox-prev { left: .5rem; }
     .lightbox-next { right: .5rem; }
     .lightbox-info { display: flex; align-items: end; justify-content: space-between; gap: 1rem; width: min(100%, 960px); }
     .lightbox-collection { margin: 0 0 .2rem; color: var(--accent); font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; }
-    .lightbox-caption { color: var(--text); font: 1.15rem var(--font-display); }
+    .lightbox-caption { color: #fff; font: 1.15rem var(--font-display); }
     .lightbox-counter { color: var(--text-muted); font: .75rem var(--font-body); white-space: nowrap; }
     .lightbox-thumbnails { display: flex; justify-content: center; gap: .55rem; width: min(100%, 960px); padding: .25rem 0; overflow-x: auto; }
     .lightbox-thumbnail { flex: 0 0 64px; width: 64px; height: 64px; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; background: var(--bg-card); opacity: .55; cursor: pointer; }
@@ -121,15 +132,15 @@
     .contact-form input, .contact-form textarea { padding: .85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); outline: 0; background: var(--bg-card); color: var(--text); font: .9rem var(--font-body); transition: border-color .3s; }
     .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
     .contact-form textarea { min-height: 140px; resize: vertical; }
-    .btn-primary { padding: .85rem 1.75rem; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--bg); font-weight: 600; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .25s; }
-    .btn-primary:hover { background: #daba82; }
+    .btn-primary { padding: .85rem 1.75rem; border: 0; border-radius: var(--radius); background: var(--accent); color: #fff; font-weight: 600; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .25s, transform .25s; }
+    .btn-primary:hover { background: #8e4d57; transform: translateY(-1px); }
     footer { padding: 2.5rem 1rem; border-top: 1px solid var(--line); color: var(--text-muted); text-align: center; font-size: .78rem; }
     @media (max-width: 900px) { .masonry { columns: 2; } .team-split { grid-template-columns: 1fr; } }
     @media (max-width: 640px) {
       .masonry { columns: 1; }
       .nav-links { display: none; }
       .burger { display: block; }
-      nav.open .nav-links { position: absolute; top: var(--nav-h); right: 0; left: 0; display: flex; flex-direction: column; padding: 1.5rem; border-bottom: 1px solid var(--line); background: var(--bg-soft); }
+      nav.open .nav-links { position: absolute; top: var(--nav-h); right: 0; left: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid var(--line); background: var(--bg-soft); }
       .lightbox { gap: .65rem; padding: 1rem; }
       .lightbox-stage { padding: 2rem 2.5rem; }
       .lightbox-stage > img { max-height: 62vh; }
@@ -144,16 +155,24 @@
 </head>
 <body>
   <nav id="navbar" aria-label="Main navigation">
-    <a href="#hero" class="nav-logo" aria-label="FD PHOTOGRAPHY home">FD <span>PHOTOGRAPHY</span></a>
+    <a href="/index.html" class="nav-logo" aria-label="FD PHOTOGRAPHY home">FD <span>PHOTOGRAPHY</span></a>
     <button class="burger" type="button" aria-label="Toggle navigation" aria-expanded="false">
       <i class="fas fa-bars" aria-hidden="true"></i>
     </button>
     <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#exhibit">Exhibition</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="/index.html" aria-current="page">Home</a></li>
+      <li><a href="/team.html">Team</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/exhibition.html">Exhibition</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li class="nav-account">
+        <button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button>
+        <div class="nav-account-menu" id="account-menu" data-account-menu hidden>
+          <span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span>
+          <button class="nav-logout" type="button" data-nav-logout>Log out</button>
+          <span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span>
+        </div>
+      </li>
     </ul>
   </nav>
 
@@ -171,12 +190,12 @@
   <section id="about">
     <span class="section-tag">Project Overview</span>
     <h2 class="section-title">Built on Collaboration</h2>
-    <p class="section-sub">BAJMC handled the visual language — photography, editing, lighting, framing &amp; thematic concepts — while FD led the creative direction on the ground: models, outfits, makeup, hair &amp; styling.</p>
+    <p class="section-sub">This collaborative lookbook brings the whole creative process together. BAJMC shaped the visual language through photography, lighting, composition and post-production; FD led the on-set direction through model casting, outfits, makeup, hair and styling. Each story is prepared for both digital viewing and exhibition or placement use.</p>
     <div class="about-grid" id="project-cards">
-      <article class="about-card"><div class="icon"><i class="fas fa-camera" aria-hidden="true"></i></div><h3>Photography &amp; Editing</h3><p>BAJMC curated shot lists, controlled lighting setups and executed post-production editing for a cohesive visual tone.</p></article>
-      <article class="about-card"><div class="icon"><i class="fas fa-user" aria-hidden="true"></i></div><h3>Model &amp; Styling</h3><p>FD sourced outfits, managed makeup/hair design and directed model poses to embody each thematic concept.</p></article>
-      <article class="about-card"><div class="icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div><h3>Thematic Concepts</h3><p>Joint brainstorming produced a narrative arc across the lookbook — each spread tells a connected story.</p></article>
-      <article class="about-card"><div class="icon"><i class="fas fa-print" aria-hidden="true"></i></div><h3>Exhibition &amp; Print</h3><p>Files are prepared in both digital (web/scroll) and print-ready CMYK formats for display or placement portfolios.</p></article>
+      <article class="about-card"><div class="icon"><i class="fas fa-camera" aria-hidden="true"></i></div><h3>Photography &amp; Editing</h3><p>BAJMC plans the shot list, selects camera and lens setups, and shapes lighting, framing and composition. The photographs are then color graded and edited into a consistent visual collection.</p></article>
+      <article class="about-card"><div class="icon"><i class="fas fa-user" aria-hidden="true"></i></div><h3>Model &amp; Styling</h3><p>FD coordinates talent and outfits, develops makeup and hair, and directs poses and on-set styling so every look feels intentional and supports the story.</p></article>
+      <article class="about-card"><div class="icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div><h3>Thematic Concepts</h3><p>Both teams develop a shared visual direction before the shoot. Each lookbook collection follows a connected mood, helping the images work together as an editorial narrative.</p></article>
+      <article class="about-card"><div class="icon"><i class="fas fa-print" aria-hidden="true"></i></div><h3>Exhibition &amp; Print</h3><p>The final work is organized for a responsive online lookbook, screen and projector presentations, and print-ready portfolio or exhibition layouts.</p></article>
     </div>
   </section>
 
@@ -201,29 +220,26 @@
       <p class="section-sub">Explore each photo story. Open a photograph to browse the rest of its collection.</p>
       <div class="filters" role="group" aria-label="Filter gallery">
         <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter-btn" type="button" data-filter="editorial" aria-pressed="false">Editorial</button>
-        <button class="filter-btn" type="button" data-filter="portrait" aria-pressed="false">Portrait</button>
         <button class="filter-btn" type="button" data-filter="lookbook" aria-pressed="false">Lookbook</button>
-        <button class="filter-btn" type="button" data-filter="objects" aria-pressed="false">Objects</button>
       </div>
       <div class="masonry" id="masonry">
-        <button class="masonry-item" type="button" data-cat="editorial" data-album="editorial-stories" data-album-title="Editorial Stories" aria-label="Open After Hours in the Editorial Stories collection">
-          <img src="/images/after-hours.jpg" alt="Model in a red sweatshirt against a white wall" loading="lazy" /><span class="overlay"><span class="cat">Editorial Stories · 3 photos</span><span class="title">After Hours</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-01" data-album-title="Lookbook 01" aria-label="Open Lookbook 01, a collection of six photos">
+          <img src="images/ai-person-01-01.webp" alt="Lookbook 01, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 01 · 6 photos</span><span class="title">Lookbook 01</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="lookbook" data-album="color-and-form" data-album-title="Color &amp; Form" aria-label="Open Soft Form in the Color and Form collection">
-          <img src="/images/soft-form.jpg" alt="Floral fashion photographed beside the sea" loading="lazy" /><span class="overlay"><span class="cat">Color &amp; Form · 3 photos</span><span class="title">Soft Form</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-02" data-album-title="Lookbook 02" aria-label="Open Lookbook 02, a collection of six photos">
+          <img src="images/ai-person-02-01.webp" alt="Lookbook 02, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 02 · 6 photos</span><span class="title">Lookbook 02</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="portrait" data-album="editorial-stories" data-album-title="Editorial Stories" aria-label="Open Street Study in the Editorial Stories collection">
-          <img src="/images/street-study.jpg" alt="Street fashion portrait against a deep teal sky" loading="lazy" /><span class="overlay"><span class="cat">Editorial Stories · 3 photos</span><span class="title">Street Study</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-03" data-album-title="Lookbook 03" aria-label="Open Lookbook 03, a collection of six photos">
+          <img src="images/ai-person-03-01.webp" alt="Lookbook 03, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 03 · 6 photos</span><span class="title">Lookbook 03</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="objects" data-album="color-and-form" data-album-title="Color &amp; Form" aria-label="Open Color Study in the Color and Form collection">
-          <img src="/images/color-study.jpg" alt="Red running shoe on a vivid red background" loading="lazy" /><span class="overlay"><span class="cat">Color &amp; Form · 3 photos</span><span class="title">Color Study</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-04" data-album-title="Lookbook 04" aria-label="Open Lookbook 04, a collection of six photos">
+          <img src="images/ai-person-04-01.webp" alt="Lookbook 04, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 04 · 6 photos</span><span class="title">Lookbook 04</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="editorial" data-album="editorial-stories" data-album-title="Editorial Stories" aria-label="Open Editorial in the Editorial Stories collection">
-          <img src="/images/editorial.jpg" alt="Model in a blue coat in front of Milan Cathedral" loading="lazy" /><span class="overlay"><span class="cat">Editorial Stories · 3 photos</span><span class="title">Editorial</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-05" data-album-title="Lookbook 05" aria-label="Open Lookbook 05, a collection of six photos">
+          <img src="images/ai-person-05-01.webp" alt="Lookbook 05, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 05 · 6 photos</span><span class="title">Lookbook 05</span></span>
         </button>
-        <button class="masonry-item" type="button" data-cat="portrait" data-album="color-and-form" data-album-title="Color &amp; Form" aria-label="Open In Motion in the Color and Form collection">
-          <img src="/images/in-motion.jpg" alt="Model in a yellow outfit under a clear blue sky" loading="lazy" /><span class="overlay"><span class="cat">Color &amp; Form · 3 photos</span><span class="title">In Motion</span></span>
+        <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-06" data-album-title="Lookbook 06" aria-label="Open Lookbook 06, a collection of six photos">
+          <img src="images/ai-person-06-01.webp" alt="Lookbook 06, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 06 · 6 photos</span><span class="title">Lookbook 06</span></span>
         </button>
       </div>
     </div>
@@ -277,6 +293,8 @@
     const lightboxCollection = document.getElementById('lightbox-collection');
     const lightboxCounter = document.getElementById('lightbox-counter');
     const lightboxThumbnails = document.getElementById('lightbox-thumbnails');
+    const lightboxPrevious = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.masonry-item');
     const burger = document.querySelector('.burger');
@@ -295,6 +313,8 @@
       lightboxCaption.textContent = photo.title;
       lightboxCollection.textContent = photo.collection;
       lightboxCounter.textContent = `${activePhotoIndex + 1} / ${activeAlbum.length}`;
+      lightboxPrevious.disabled = activeAlbum.length < 2;
+      lightboxNext.disabled = activeAlbum.length < 2;
 
       [...lightboxThumbnails.children].forEach((thumbnail, thumbnailIndex) => {
         if (thumbnailIndex === activePhotoIndex) {
@@ -307,14 +327,14 @@
 
     function openAlbum(card) {
       const albumId = card.dataset.album;
-      const albumCards = [...galleryItems].filter((item) => item.dataset.album === albumId);
-      activeAlbum = albumCards.map((item) => ({
-        src: item.querySelector('img').src,
-        alt: item.querySelector('img').alt,
-        title: item.querySelector('.title').textContent,
-        collection: item.dataset.albumTitle,
+      const albumTitle = card.dataset.albumTitle;
+      activeAlbum = Array.from({ length: 6 }, (_, index) => ({
+        src: `images/${albumId}-${String(index + 1).padStart(2, '0')}.webp`,
+        alt: `${albumTitle}, photo ${index + 1}`,
+        title: `Photo ${index + 1}`,
+        collection: albumTitle,
       }));
-      activePhotoIndex = albumCards.indexOf(card);
+      activePhotoIndex = 0;
       lastFocusedPhoto = card;
       lightboxThumbnails.replaceChildren();
 
@@ -368,16 +388,16 @@
     }
 
     lightboxClose.addEventListener('click', closeLightbox);
-    document.querySelector('.lightbox-prev').addEventListener('click', () => showAlbumPhoto(activePhotoIndex - 1));
-    document.querySelector('.lightbox-next').addEventListener('click', () => showAlbumPhoto(activePhotoIndex + 1));
+    lightboxPrevious.addEventListener('click', () => showAlbumPhoto(activePhotoIndex - 1));
+    lightboxNext.addEventListener('click', () => showAlbumPhoto(activePhotoIndex + 1));
     lightbox.addEventListener('click', (event) => {
       if (event.target === lightbox) closeLightbox();
     });
     document.addEventListener('keydown', (event) => {
       if (!lightbox.classList.contains('open')) return;
       if (event.key === 'Escape') closeLightbox();
-      if (event.key === 'ArrowLeft') showAlbumPhoto(activePhotoIndex - 1);
-      if (event.key === 'ArrowRight') showAlbumPhoto(activePhotoIndex + 1);
+      if (activeAlbum.length > 1 && event.key === 'ArrowLeft') showAlbumPhoto(activePhotoIndex - 1);
+      if (activeAlbum.length > 1 && event.key === 'ArrowRight') showAlbumPhoto(activePhotoIndex + 1);
     });
 
     filterButtons.forEach((button) => {
@@ -397,13 +417,13 @@
 
     document.getElementById('contact-form').addEventListener('submit', (event) => {
       event.preventDefault();
-      alert('Thanks! This is a demo form. Connect it to an email service to receive submissions.');
-      event.currentTarget.reset();
+      window.location.assign('thank-you.html');
     });
 
     window.addEventListener('scroll', () => {
       navbar.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,.5)' : 'none';
     }, { passive: true });
   </script>
+  <script type="module" src="/site-nav-auth.js"></script>
 </body>
 </html>

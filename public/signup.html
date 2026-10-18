@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff">
+  <title>Join the Lookbook — FD Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --bg: #fff; --panel: #fff; --text: #111; --muted: #666; --accent: #b76e79; --line: #eee; --error: #a83e45; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 2rem 1rem; background: var(--bg); color: var(--text); font-family: Montserrat, "Segoe UI", sans-serif; }
+    main { width: min(100%, 28rem); padding: clamp(1.5rem, 6vw, 2.5rem); border: 1px solid var(--line); border-radius: 4px; background: var(--panel); box-shadow: 0 1rem 3rem rgba(17,17,17,.06); }
+    .brand { margin: 0 0 .6rem; color: var(--accent); font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-align: center; text-transform: uppercase; }
+    h1 { margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: clamp(2rem, 8vw, 2.6rem); font-weight: 400; text-align: center; }
+    .intro { margin: .75rem 0 2rem; color: var(--muted); line-height: 1.6; text-align: center; }
+    form { display: grid; gap: 1rem; }
+    label { display: grid; gap: .45rem; color: var(--muted); font-size: .85rem; }
+    input { width: 100%; min-height: 2.9rem; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--text); font: inherit; }
+    input:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    button { min-height: 3rem; margin-top: .3rem; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: #fff; cursor: pointer; font: inherit; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; transition: background .2s; }
+    button:not(:disabled):hover { background: #8e4d57; }
+    button:disabled { cursor: wait; opacity: .65; }
+    #message { min-height: 1.3rem; margin: 1rem 0 0; color: var(--error); font-size: .9rem; line-height: 1.5; }
+    #message.success { color: #795057; }
+    .back { display: block; margin-top: 1rem; color: var(--muted); font-size: .9rem; text-align: center; text-decoration: none; }
+    .back:hover { color: var(--accent); }
+    .account-link { margin: 1rem 0 0; color: var(--muted); font-size: .9rem; text-align: center; }
+    .account-link a { color: var(--accent); text-decoration: none; }
+    .account-link a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="brand">FD Lookbook</p>
+    <h1>Join the Lookbook</h1>
+    <p class="intro">Create an account to save your place in our photography and styling community.</p>
+    <form id="signup-form">
+      <label for="name">Full name
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </label>
+      <label for="email">Email
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </label>
+      <label for="password">Password
+        <input id="password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+      </label>
+      <label for="confirm-password">Confirm password
+        <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required>
+      </label>
+      <button id="submit-button" type="submit">Create account</button>
+    </form>
+    <p id="message" role="status" aria-live="polite"></p>
+    <p class="account-link">Already have an account? <a href="/login">Log in</a></p>
+    <a class="back" href="/">Back to home</a>
+  </main>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+    import { getFirestore, addDoc, collection, doc, serverTimestamp, setDoc } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
+
+    const form = document.querySelector('#signup-form');
+    const button = document.querySelector('#submit-button');
+    const message = document.querySelector('#message');
+    let signupInProgress = false;
+
+    function setMessage(text, success = false) {
+      message.textContent = text;
+      message.classList.toggle('success', success);
+    }
+
+    function getErrorMessage(code) {
+      if (code === 'auth/email-already-in-use') return 'An account already exists for this email.';
+      if (code === 'auth/invalid-email') return 'Enter a valid email address.';
+      if (code === 'auth/weak-password') return 'Choose a stronger password with at least 6 characters.';
+      return 'Unable to create your account. Please try again.';
+    }
+
+    let services;
+    try {
+      const configResponse = await fetch('/__/firebase/init.json');
+      if (!configResponse.ok) throw new Error(`Firebase config request failed: ${configResponse.status}`);
+      const config = await configResponse.json();
+      const app = initializeApp(config);
+      services = { auth: getAuth(app), db: getFirestore(app) };
+      onAuthStateChanged(services.auth, (user) => {
+        if (user && !signupInProgress) window.location.replace('/');
+      });
+    } catch (error) {
+      console.error('Unable to initialize Firebase signup:', error);
+      form.querySelectorAll('input, button').forEach((control) => { control.disabled = true; });
+      setMessage('Account services could not be initialized. Please try again later.');
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!services) return;
+
+      const data = new FormData(form);
+      const name = String(data.get('name')).trim();
+      const email = String(data.get('email')).trim().toLowerCase();
+      const password = String(data.get('password'));
+      const confirmPassword = String(data.get('confirmPassword'));
+
+      if (password !== confirmPassword) {
+        setMessage('Passwords do not match.');
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Creating account...';
+      setMessage('');
+      signupInProgress = true;
+      try {
+        const { user } = await createUserWithEmailAndPassword(services.auth, email, password);
+        const userData = {
+          uid: user.uid,
+          name,
+          email,
+          createdAt: serverTimestamp(),
+          role: 'user',
+          status: 'active',
+        };
+        await setDoc(doc(services.db, 'users', user.uid), userData);
+        await addDoc(collection(services.db, 'signups'), {
+          uid: user.uid,
+          name,
+          email,
+          signupTime: serverTimestamp(),
+        });
+        window.location.replace('/');
+      } catch (error) {
+        console.error('Signup error:', error);
+        setMessage(getErrorMessage(error.code));
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Create account';
+        signupInProgress = false;
+      }
+    });
+  </script>
+</body>
+</html>

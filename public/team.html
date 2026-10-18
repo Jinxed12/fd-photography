@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Meet the BAJMC and FD creative teams behind the fashion lookbook." />
+  <title>Team | FD PHOTOGRAPHY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/site-pages.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="/index.html" class="nav-logo">FD <span>PHOTOGRAPHY</span></a>
+    <button class="burger" type="button" aria-label="Toggle navigation" aria-expanded="false"><i class="fas fa-bars" aria-hidden="true"></i></button>
+    <ul class="nav-links">
+      <li><a href="/index.html">Home</a></li><li><a href="/team.html" aria-current="page">Team</a></li><li><a href="/gallery.html">Gallery</a></li><li><a href="/exhibition.html">Exhibition</a></li><li><a href="/contact.html">Contact</a></li>
+      <li class="nav-account"><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span><button class="nav-logout" type="button" data-nav-logout>Log out</button><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></div></li>
+    </ul>
+  </nav>
+  <main class="page-content"><div class="page-inner">
+    <span class="section-tag">Who Did What</span>
+    <h1 class="section-title">Two Teams, One Vision</h1>
+    <p class="section-sub">Clear division of creative responsibilities with full cross-collaboration at every stage.</p>
+    <div class="team-split">
+      <article class="team-col bajmc"><h2>BAJMC</h2><p class="dept">Photography &amp; Visual Production</p><ul>
+        <li><i class="fas fa-check" aria-hidden="true"></i>Camera &amp; lens selection</li><li><i class="fas fa-check" aria-hidden="true"></i>Lighting design &amp; setup</li><li><i class="fas fa-check" aria-hidden="true"></i>Framing &amp; composition</li><li><i class="fas fa-check" aria-hidden="true"></i>Color grading &amp; editing</li><li><i class="fas fa-check" aria-hidden="true"></i>Thematic concept development</li>
+      </ul></article>
+      <article class="team-col fd"><h2>FD</h2><p class="dept">Creative Styling &amp; Talent</p><ul>
+        <li><i class="fas fa-check" aria-hidden="true"></i>Model casting &amp; direction</li><li><i class="fas fa-check" aria-hidden="true"></i>Outfit sourcing &amp; coordination</li><li><i class="fas fa-check" aria-hidden="true"></i>Makeup &amp; hair design</li><li><i class="fas fa-check" aria-hidden="true"></i>Creative props &amp; set styling</li><li><i class="fas fa-check" aria-hidden="true"></i>On-set creative leadership</li>
+      </ul></article>
+    </div>
+  </div></main>
+  <footer class="site-footer">FD PHOTOGRAPHY &copy; 2026 — BAJMC × FD Collaboration</footer>
+  <script>
+    const nav = document.querySelector('.site-nav');
+    const menuButton = document.querySelector('.burger');
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  </script>
+  <script type="module" src="/site-nav-auth.js"></script>
+</body>
+</html>

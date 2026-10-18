@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Exhibition and placement formats for the FD fashion lookbook." />
+  <title>Exhibition | FD PHOTOGRAPHY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/site-pages.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="/index.html" class="nav-logo">FD <span>PHOTOGRAPHY</span></a>
+    <button class="burger" type="button" aria-label="Toggle navigation" aria-expanded="false"><i class="fas fa-bars" aria-hidden="true"></i></button>
+    <ul class="nav-links">
+      <li><a href="/index.html">Home</a></li><li><a href="/team.html">Team</a></li><li><a href="/gallery.html">Gallery</a></li><li><a href="/exhibition.html" aria-current="page">Exhibition</a></li><li><a href="/contact.html">Contact</a></li>
+      <li class="nav-account"><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span><button class="nav-logout" type="button" data-nav-logout>Log out</button><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></div></li>
+    </ul>
+  </nav>
+  <main class="page-content"><div class="page-inner">
+    <span class="section-tag">Exhibition &amp; Placement</span>
+    <h1 class="section-title">Ready to Showcase</h1>
+    <p class="section-sub">Whether it's a physical exhibition wall, digital slideshow, or placement portfolio — we've got formats covered.</p>
+    <div class="exhibit-grid">
+      <article class="exhibit-card"><i class="fas fa-desktop" aria-hidden="true"></i><h2>Digital Lookbook</h2><p>Scroll-ready web gallery, optimised for screens &amp; projectors.</p></article>
+      <article class="exhibit-card"><i class="fas fa-file-pdf" aria-hidden="true"></i><h2>PDF Portfolio</h2><p>Print-ready pages in CMYK, A4 / A3 export options.</p></article>
+      <article class="exhibit-card"><i class="fas fa-images" aria-hidden="true"></i><h2>Print Exhibition</h2><p>High-res files for large-format prints, rail &amp; panel display.</p></article>
+      <article class="exhibit-card"><i class="fas fa-briefcase" aria-hidden="true"></i><h2>Placement Ready</h2><p>Curated selects with credits, perfect for internship / job portfolios.</p></article>
+    </div>
+  </div></main>
+  <footer class="site-footer">FD PHOTOGRAPHY &copy; 2026 — BAJMC × FD Collaboration</footer>
+  <script>
+    const nav = document.querySelector('.site-nav');
+    const menuButton = document.querySelector('.burger');
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+  </script>
+  <script type="module" src="/site-nav-auth.js"></script>
+</body>
+</html>

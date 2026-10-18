@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact FD Photography about collaborations, exhibitions, and placements." />
+  <title>Contact | FD PHOTOGRAPHY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/site-pages.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="/index.html" class="nav-logo">FD <span>PHOTOGRAPHY</span></a>
+    <button class="burger" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="/index.html">Home</a></li><li><a href="/team.html">Team</a></li><li><a href="/gallery.html">Gallery</a></li><li><a href="/exhibition.html">Exhibition</a></li><li><a href="/contact.html" aria-current="page">Contact</a></li>
+      <li class="nav-account"><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span><button class="nav-logout" type="button" data-nav-logout>Log out</button><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></div></li>
+    </ul>
+  </nav>
+  <main class="page-content"><div class="page-inner">
+    <span class="section-tag">Get in Touch</span>
+    <h1 class="section-title">Let's Create Together</h1>
+    <p class="section-sub">For collaboration inquiries, exhibition booking, or placement opportunities.</p>
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" aria-label="Your name" required />
+      <input type="email" name="email" placeholder="your@email.com" aria-label="Your email" required />
+      <textarea name="message" placeholder="Message..." aria-label="Your message" required></textarea>
+      <button type="submit" class="btn-primary">Send Message</button>
+    </form>
+  </div></main>
+  <footer class="site-footer">FD PHOTOGRAPHY &copy; 2026 — BAJMC × FD Collaboration</footer>
+  <script>
+    const nav = document.querySelector('.site-nav');
+    const menuButton = document.querySelector('.burger');
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.querySelector('.contact-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      window.location.assign('/thank-you.html');
+    });
+  </script>
+  <script type="module" src="/site-nav-auth.js"></script>
+</body>
+</html>
