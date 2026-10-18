@@ -16,7 +16,9 @@
     <button class="burger" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     <ul class="nav-links">
       <li><a href="/index.html">Home</a></li><li><a href="/team.html">Team</a></li><li><a href="/gallery.html">Gallery</a></li><li><a href="/exhibition.html">Exhibition</a></li><li><a href="/contact.html" aria-current="page">Contact</a></li>
-      <li class="nav-account"><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span><button class="nav-logout" type="button" data-nav-logout>Log out</button><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></div></li>
+      <li><a href="/login" data-auth-guest>Login</a></li><li><a href="/signup" data-auth-guest>Sign up</a></li>
+      <li class="nav-account" data-auth-user hidden><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite"></span><button class="nav-logout" type="button" data-nav-logout>Log out</button></div></li>
+      <li><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></li>
     </ul>
   </nav>
   <main class="page-content"><div class="page-inner">
@@ -24,10 +26,11 @@
     <h1 class="section-title">Let's Create Together</h1>
     <p class="section-sub">For collaboration inquiries, exhibition booking, or placement opportunities.</p>
     <form class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" aria-label="Your name" required />
-      <input type="email" name="email" placeholder="your@email.com" aria-label="Your email" required />
-      <textarea name="message" placeholder="Message..." aria-label="Your message" required></textarea>
+      <input type="text" name="name" placeholder="Your Name" aria-label="Your name" maxlength="100" required />
+      <input type="email" name="email" placeholder="your@email.com" aria-label="Your email" maxlength="254" required />
+      <textarea name="message" placeholder="Message..." aria-label="Your message" minlength="10" maxlength="5000" required></textarea>
       <button type="submit" class="btn-primary">Send Message</button>
+      <p class="contact-status" data-contact-status role="status" aria-live="polite" hidden></p>
     </form>
   </div></main>
   <footer class="site-footer">FD PHOTOGRAPHY &copy; 2026 — BAJMC × FD Collaboration</footer>
@@ -38,11 +41,8 @@
       const isOpen = nav.classList.toggle('open');
       menuButton.setAttribute('aria-expanded', String(isOpen));
     });
-    document.querySelector('.contact-form').addEventListener('submit', (event) => {
-      event.preventDefault();
-      window.location.assign('/thank-you.html');
-    });
   </script>
+  <script type="module" src="/site-contact-form.js"></script>
   <script type="module" src="/site-nav-auth.js"></script>
 </body>
 </html>

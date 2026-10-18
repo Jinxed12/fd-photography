@@ -8,6 +8,8 @@ import { auth } from '@/lib/firebase';
 
 function getLoginErrorMessage(error) {
   switch (error.code) {
+    case 'auth/configuration-not-found':
+      return 'Firebase Authentication is not configured for this project. Please contact support.';
     case 'auth/invalid-credential':
     case 'auth/user-not-found':
     case 'auth/wrong-password':

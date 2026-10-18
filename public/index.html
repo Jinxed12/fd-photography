@@ -132,8 +132,11 @@
     .contact-form input, .contact-form textarea { padding: .85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); outline: 0; background: var(--bg-card); color: var(--text); font: .9rem var(--font-body); transition: border-color .3s; }
     .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
     .contact-form textarea { min-height: 140px; resize: vertical; }
+    .contact-status { margin: 0; color: var(--text-muted); font-size: .85rem; }
+    .contact-status.error { color: #a12b36; }
     .btn-primary { padding: .85rem 1.75rem; border: 0; border-radius: var(--radius); background: var(--accent); color: #fff; font-weight: 600; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .25s, transform .25s; }
     .btn-primary:hover { background: #8e4d57; transform: translateY(-1px); }
+    .btn-primary:disabled { cursor: wait; opacity: .65; }
     footer { padding: 2.5rem 1rem; border-top: 1px solid var(--line); color: var(--text-muted); text-align: center; font-size: .78rem; }
     @media (max-width: 900px) { .masonry { columns: 2; } .team-split { grid-template-columns: 1fr; } }
     @media (max-width: 640px) {
@@ -165,14 +168,16 @@
       <li><a href="/gallery.html">Gallery</a></li>
       <li><a href="/exhibition.html">Exhibition</a></li>
       <li><a href="/contact.html">Contact</a></li>
-      <li class="nav-account">
+      <li><a href="/login" data-auth-guest>Login</a></li>
+      <li><a href="/signup" data-auth-guest>Sign up</a></li>
+      <li class="nav-account" data-auth-user hidden>
         <button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button>
         <div class="nav-account-menu" id="account-menu" data-account-menu hidden>
-          <span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span>
+          <span class="nav-account-greeting" data-nav-greeting aria-live="polite"></span>
           <button class="nav-logout" type="button" data-nav-logout>Log out</button>
-          <span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span>
         </div>
       </li>
+      <li><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></li>
     </ul>
   </nav>
 
@@ -221,6 +226,7 @@
       <div class="filters" role="group" aria-label="Filter gallery">
         <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
         <button class="filter-btn" type="button" data-filter="lookbook" aria-pressed="false">Lookbook</button>
+        <button class="filter-btn" type="button" data-filter="nature" aria-pressed="false">Nature</button>
       </div>
       <div class="masonry" id="masonry">
         <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-01" data-album-title="Lookbook 01" aria-label="Open Lookbook 01, a collection of six photos">
@@ -240,6 +246,24 @@
         </button>
         <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-06" data-album-title="Lookbook 06" aria-label="Open Lookbook 06, a collection of six photos">
           <img src="images/ai-person-06-01.webp" alt="Lookbook 06, photo 1" loading="lazy" /><span class="overlay"><span class="cat">Lookbook 06 · 6 photos</span><span class="title">Lookbook 06</span></span>
+        </button>
+        <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-01-alpine-lake" data-album-title="Alpine Lake" aria-label="Open Alpine Lake nature photograph">
+          <img src="/images/ai-nature-01-alpine-lake.webp" alt="Still alpine lake reflecting the surrounding mountains" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Alpine Lake</span></span>
+        </button>
+        <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-02-forest-light" data-album-title="Forest Light" aria-label="Open Forest Light nature photograph">
+          <img src="/images/ai-nature-02-forest-light.webp" alt="Sunlight filtering through a forest" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Forest Light</span></span>
+        </button>
+        <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-03-waterfall" data-album-title="Waterfall" aria-label="Open Waterfall nature photograph">
+          <img src="/images/ai-nature-03-waterfall.webp" alt="Waterfall surrounded by lush greenery" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Waterfall</span></span>
+        </button>
+        <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-04-coastal-sunset" data-album-title="Coastal Sunset" aria-label="Open Coastal Sunset nature photograph">
+          <img src="/images/ai-nature-04-coastal-sunset.webp" alt="Sunset over a quiet coastline" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Coastal Sunset</span></span>
+        </button>
+        <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-05-wildflower-meadow" data-album-title="Wildflower Meadow" aria-label="Open Wildflower Meadow nature photograph">
+          <img src="/images/ai-nature-05-wildflower-meadow.webp" alt="Wildflowers in a sunlit meadow" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Wildflower Meadow</span></span>
+        </button>
+        <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-06-rain-on-leaves" data-album-title="Rain on Leaves" aria-label="Open Rain on Leaves nature photograph">
+          <img src="/images/ai-nature-06-rain-on-leaves.webp" alt="Raindrops resting on green leaves" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Rain on Leaves</span></span>
         </button>
       </div>
     </div>
@@ -262,10 +286,11 @@
     <h2 class="section-title">Let's Create Together</h2>
     <p class="section-sub">For collaboration inquiries, exhibition booking, or placement opportunities.</p>
     <form class="contact-form" id="contact-form">
-      <input type="text" name="name" placeholder="Your Name" aria-label="Your name" required />
-      <input type="email" name="email" placeholder="your@email.com" aria-label="Your email" required />
-      <textarea name="message" placeholder="Message..." aria-label="Your message" required></textarea>
+      <input type="text" name="name" placeholder="Your Name" aria-label="Your name" maxlength="100" required />
+      <input type="email" name="email" placeholder="your@email.com" aria-label="Your email" maxlength="254" required />
+      <textarea name="message" placeholder="Message..." aria-label="Your message" minlength="10" maxlength="5000" required></textarea>
       <button type="submit" class="btn-primary">Send Message</button>
+      <p class="contact-status" data-contact-status role="status" aria-live="polite" hidden></p>
     </form>
   </section>
 
@@ -287,77 +312,7 @@
 
   <script>
     const navbar = document.getElementById('navbar');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxCollection = document.getElementById('lightbox-collection');
-    const lightboxCounter = document.getElementById('lightbox-counter');
-    const lightboxThumbnails = document.getElementById('lightbox-thumbnails');
-    const lightboxPrevious = document.querySelector('.lightbox-prev');
-    const lightboxNext = document.querySelector('.lightbox-next');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.masonry-item');
     const burger = document.querySelector('.burger');
-    const lightboxClose = document.querySelector('.lightbox-close');
-    let activeAlbum = [];
-    let activePhotoIndex = 0;
-    let lastFocusedPhoto = null;
-
-    function showAlbumPhoto(index) {
-      if (!activeAlbum.length) return;
-
-      activePhotoIndex = (index + activeAlbum.length) % activeAlbum.length;
-      const photo = activeAlbum[activePhotoIndex];
-      lightboxImage.src = photo.src;
-      lightboxImage.alt = photo.alt;
-      lightboxCaption.textContent = photo.title;
-      lightboxCollection.textContent = photo.collection;
-      lightboxCounter.textContent = `${activePhotoIndex + 1} / ${activeAlbum.length}`;
-      lightboxPrevious.disabled = activeAlbum.length < 2;
-      lightboxNext.disabled = activeAlbum.length < 2;
-
-      [...lightboxThumbnails.children].forEach((thumbnail, thumbnailIndex) => {
-        if (thumbnailIndex === activePhotoIndex) {
-          thumbnail.setAttribute('aria-current', 'true');
-        } else {
-          thumbnail.removeAttribute('aria-current');
-        }
-      });
-    }
-
-    function openAlbum(card) {
-      const albumId = card.dataset.album;
-      const albumTitle = card.dataset.albumTitle;
-      activeAlbum = Array.from({ length: 6 }, (_, index) => ({
-        src: `images/${albumId}-${String(index + 1).padStart(2, '0')}.webp`,
-        alt: `${albumTitle}, photo ${index + 1}`,
-        title: `Photo ${index + 1}`,
-        collection: albumTitle,
-      }));
-      activePhotoIndex = 0;
-      lastFocusedPhoto = card;
-      lightboxThumbnails.replaceChildren();
-
-      activeAlbum.forEach((photo, index) => {
-        const thumbnail = document.createElement('button');
-        thumbnail.type = 'button';
-        thumbnail.className = 'lightbox-thumbnail';
-        thumbnail.setAttribute('aria-label', `View ${photo.title}`);
-        const image = document.createElement('img');
-        image.src = photo.src;
-        image.alt = '';
-        image.loading = 'lazy';
-        thumbnail.append(image);
-        thumbnail.addEventListener('click', () => showAlbumPhoto(index));
-        lightboxThumbnails.append(thumbnail);
-      });
-
-      showAlbumPhoto(activePhotoIndex);
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      lightboxClose.focus();
-    }
 
     burger.addEventListener('click', () => {
       const isOpen = navbar.classList.toggle('open');
@@ -371,59 +326,12 @@
       });
     });
 
-    galleryItems.forEach((card) => {
-      card.addEventListener('click', () => {
-        openAlbum(card);
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      lightboxImage.src = '';
-      lightboxThumbnails.replaceChildren();
-      activeAlbum = [];
-      document.body.style.overflow = '';
-      if (lastFocusedPhoto) lastFocusedPhoto.focus();
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxPrevious.addEventListener('click', () => showAlbumPhoto(activePhotoIndex - 1));
-    lightboxNext.addEventListener('click', () => showAlbumPhoto(activePhotoIndex + 1));
-    lightbox.addEventListener('click', (event) => {
-      if (event.target === lightbox) closeLightbox();
-    });
-    document.addEventListener('keydown', (event) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (event.key === 'Escape') closeLightbox();
-      if (activeAlbum.length > 1 && event.key === 'ArrowLeft') showAlbumPhoto(activePhotoIndex - 1);
-      if (activeAlbum.length > 1 && event.key === 'ArrowRight') showAlbumPhoto(activePhotoIndex + 1);
-    });
-
-    filterButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        filterButtons.forEach((item) => {
-          item.classList.remove('active');
-          item.setAttribute('aria-pressed', 'false');
-        });
-        button.classList.add('active');
-        button.setAttribute('aria-pressed', 'true');
-        const filter = button.dataset.filter;
-        galleryItems.forEach((item) => {
-          item.hidden = filter !== 'all' && item.dataset.cat !== filter;
-        });
-      });
-    });
-
-    document.getElementById('contact-form').addEventListener('submit', (event) => {
-      event.preventDefault();
-      window.location.assign('thank-you.html');
-    });
-
     window.addEventListener('scroll', () => {
       navbar.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,.5)' : 'none';
     }, { passive: true });
   </script>
+  <script type="module" src="/site-gallery.js"></script>
+  <script type="module" src="/site-contact-form.js"></script>
   <script type="module" src="/site-nav-auth.js"></script>
 </body>
 </html>

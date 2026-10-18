@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Browse the FD Photography fashion lookbook gallery." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Browse FD Photography lookbook collections and nature photographs." />
   <title>Gallery | FD PHOTOGRAPHY</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,52 +16,48 @@
     <button class="burger" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     <ul class="nav-links">
       <li><a href="/index.html">Home</a></li><li><a href="/team.html">Team</a></li><li><a href="/gallery.html" aria-current="page">Gallery</a></li><li><a href="/exhibition.html">Exhibition</a></li><li><a href="/contact.html">Contact</a></li>
-      <li class="nav-account"><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite">Hi, Guest Visitor (guest)</span><button class="nav-logout" type="button" data-nav-logout>Log out</button><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></div></li>
+      <li><a href="/login" data-auth-guest>Login</a></li><li><a href="/signup" data-auth-guest>Sign up</a></li>
+      <li class="nav-account" data-auth-user hidden><button class="nav-account-toggle" type="button" data-account-toggle aria-expanded="false" aria-controls="account-menu">Logout</button><div class="nav-account-menu" id="account-menu" data-account-menu hidden><span class="nav-account-greeting" data-nav-greeting aria-live="polite"></span><button class="nav-logout" type="button" data-nav-logout>Log out</button></div></li>
+      <li><span class="nav-error" data-nav-error role="status" aria-live="polite" hidden></span></li>
     </ul>
   </nav>
   <main class="page-content"><div class="page-inner">
     <span class="section-tag">Gallery</span>
     <h1 class="section-title">Lookbook Picks</h1>
-    <p class="section-sub">Explore the photo stories. Select a photograph to view it at full size.</p>
+    <p class="section-sub">Browse a complete lookbook story or explore a nature photograph. Open any card to view it with the collection controls.</p>
+    <div class="filters" role="group" aria-label="Filter gallery">
+      <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter-btn" type="button" data-filter="lookbook" aria-pressed="false">Lookbook</button>
+      <button class="filter-btn" type="button" data-filter="nature" aria-pressed="false">Nature</button>
+    </div>
     <div class="masonry">
-      <a class="masonry-item" href="/images/ai-person-01-01.webp"><img src="/images/ai-person-01-01.webp" alt="Lookbook 01, photo 1" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-01-02.webp"><img src="/images/ai-person-01-02.webp" alt="Lookbook 01, photo 2" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-01-03.webp"><img src="/images/ai-person-01-03.webp" alt="Lookbook 01, photo 3" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-01-04.webp"><img src="/images/ai-person-01-04.webp" alt="Lookbook 01, photo 4" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-01-05.webp"><img src="/images/ai-person-01-05.webp" alt="Lookbook 01, photo 5" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-01-06.webp"><img src="/images/ai-person-01-06.webp" alt="Lookbook 01, photo 6" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-02-01.webp"><img src="/images/ai-person-02-01.webp" alt="Lookbook 02, photo 1" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-02-02.webp"><img src="/images/ai-person-02-02.webp" alt="Lookbook 02, photo 2" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-02-03.webp"><img src="/images/ai-person-02-03.webp" alt="Lookbook 02, photo 3" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-02-04.webp"><img src="/images/ai-person-02-04.webp" alt="Lookbook 02, photo 4" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-02-05.webp"><img src="/images/ai-person-02-05.webp" alt="Lookbook 02, photo 5" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-02-06.webp"><img src="/images/ai-person-02-06.webp" alt="Lookbook 02, photo 6" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-03-01.webp"><img src="/images/ai-person-03-01.webp" alt="Lookbook 03, photo 1" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-03-02.webp"><img src="/images/ai-person-03-02.webp" alt="Lookbook 03, photo 2" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-03-03.webp"><img src="/images/ai-person-03-03.webp" alt="Lookbook 03, photo 3" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-03-04.webp"><img src="/images/ai-person-03-04.webp" alt="Lookbook 03, photo 4" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-03-05.webp"><img src="/images/ai-person-03-05.webp" alt="Lookbook 03, photo 5" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-03-06.webp"><img src="/images/ai-person-03-06.webp" alt="Lookbook 03, photo 6" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-04-01.webp"><img src="/images/ai-person-04-01.webp" alt="Lookbook 04, photo 1" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-04-02.webp"><img src="/images/ai-person-04-02.webp" alt="Lookbook 04, photo 2" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-04-03.webp"><img src="/images/ai-person-04-03.webp" alt="Lookbook 04, photo 3" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-04-04.webp"><img src="/images/ai-person-04-04.webp" alt="Lookbook 04, photo 4" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-04-05.webp"><img src="/images/ai-person-04-05.webp" alt="Lookbook 04, photo 5" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-04-06.webp"><img src="/images/ai-person-04-06.webp" alt="Lookbook 04, photo 6" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-05-01.webp"><img src="/images/ai-person-05-01.webp" alt="Lookbook 05, photo 1" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-05-02.webp"><img src="/images/ai-person-05-02.webp" alt="Lookbook 05, photo 2" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-05-03.webp"><img src="/images/ai-person-05-03.webp" alt="Lookbook 05, photo 3" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-05-04.webp"><img src="/images/ai-person-05-04.webp" alt="Lookbook 05, photo 4" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-05-05.webp"><img src="/images/ai-person-05-05.webp" alt="Lookbook 05, photo 5" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-05-06.webp"><img src="/images/ai-person-05-06.webp" alt="Lookbook 05, photo 6" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-06-01.webp"><img src="/images/ai-person-06-01.webp" alt="Lookbook 06, photo 1" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-06-02.webp"><img src="/images/ai-person-06-02.webp" alt="Lookbook 06, photo 2" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-06-03.webp"><img src="/images/ai-person-06-03.webp" alt="Lookbook 06, photo 3" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-06-04.webp"><img src="/images/ai-person-06-04.webp" alt="Lookbook 06, photo 4" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-06-05.webp"><img src="/images/ai-person-06-05.webp" alt="Lookbook 06, photo 5" loading="lazy" /></a>
-      <a class="masonry-item" href="/images/ai-person-06-06.webp"><img src="/images/ai-person-06-06.webp" alt="Lookbook 06, photo 6" loading="lazy" /></a>
+      <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-01" data-album-title="Lookbook 01" aria-label="Open Lookbook 01, a collection of six photos"><img src="/images/ai-person-01-01.webp" alt="Lookbook 01, photo 1" loading="lazy" /><span class="overlay"><span class="cat">6 photos</span><span class="title">Lookbook 01</span></span></button>
+      <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-02" data-album-title="Lookbook 02" aria-label="Open Lookbook 02, a collection of six photos"><img src="/images/ai-person-02-01.webp" alt="Lookbook 02, photo 1" loading="lazy" /><span class="overlay"><span class="cat">6 photos</span><span class="title">Lookbook 02</span></span></button>
+      <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-03" data-album-title="Lookbook 03" aria-label="Open Lookbook 03, a collection of six photos"><img src="/images/ai-person-03-01.webp" alt="Lookbook 03, photo 1" loading="lazy" /><span class="overlay"><span class="cat">6 photos</span><span class="title">Lookbook 03</span></span></button>
+      <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-04" data-album-title="Lookbook 04" aria-label="Open Lookbook 04, a collection of six photos"><img src="/images/ai-person-04-01.webp" alt="Lookbook 04, photo 1" loading="lazy" /><span class="overlay"><span class="cat">6 photos</span><span class="title">Lookbook 04</span></span></button>
+      <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-05" data-album-title="Lookbook 05" aria-label="Open Lookbook 05, a collection of six photos"><img src="/images/ai-person-05-01.webp" alt="Lookbook 05, photo 1" loading="lazy" /><span class="overlay"><span class="cat">6 photos</span><span class="title">Lookbook 05</span></span></button>
+      <button class="masonry-item" type="button" data-cat="lookbook" data-album="ai-person-06" data-album-title="Lookbook 06" aria-label="Open Lookbook 06, a collection of six photos"><img src="/images/ai-person-06-01.webp" alt="Lookbook 06, photo 1" loading="lazy" /><span class="overlay"><span class="cat">6 photos</span><span class="title">Lookbook 06</span></span></button>
+      <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-01-alpine-lake" data-album-title="Alpine Lake" aria-label="Open Alpine Lake nature photograph"><img src="/images/ai-nature-01-alpine-lake.webp" alt="Still alpine lake reflecting the surrounding mountains" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Alpine Lake</span></span></button>
+      <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-02-forest-light" data-album-title="Forest Light" aria-label="Open Forest Light nature photograph"><img src="/images/ai-nature-02-forest-light.webp" alt="Sunlight filtering through a forest" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Forest Light</span></span></button>
+      <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-03-waterfall" data-album-title="Waterfall" aria-label="Open Waterfall nature photograph"><img src="/images/ai-nature-03-waterfall.webp" alt="Waterfall surrounded by lush greenery" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Waterfall</span></span></button>
+      <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-04-coastal-sunset" data-album-title="Coastal Sunset" aria-label="Open Coastal Sunset nature photograph"><img src="/images/ai-nature-04-coastal-sunset.webp" alt="Sunset over a quiet coastline" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Coastal Sunset</span></span></button>
+      <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-05-wildflower-meadow" data-album-title="Wildflower Meadow" aria-label="Open Wildflower Meadow nature photograph"><img src="/images/ai-nature-05-wildflower-meadow.webp" alt="Wildflowers in a sunlit meadow" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Wildflower Meadow</span></span></button>
+      <button class="masonry-item" type="button" data-cat="nature" data-album-type="single" data-album="ai-nature-06-rain-on-leaves" data-album-title="Rain on Leaves" aria-label="Open Rain on Leaves nature photograph"><img src="/images/ai-nature-06-rain-on-leaves.webp" alt="Raindrops resting on green leaves" loading="lazy" /><span class="overlay"><span class="cat">Nature</span><span class="title">Rain on Leaves</span></span></button>
     </div>
   </div></main>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo collection" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Close photo collection">×</button>
+    <div class="lightbox-stage">
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous photo">‹</button>
+      <img id="lightbox-img" src="" alt="" />
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next photo">›</button>
+    </div>
+    <div class="lightbox-info">
+      <div><p class="lightbox-collection" id="lightbox-collection"></p><p class="lightbox-caption" id="lightbox-caption"></p></div>
+      <p class="lightbox-counter" id="lightbox-counter" aria-live="polite"></p>
+    </div>
+    <div class="lightbox-thumbnails" id="lightbox-thumbnails" aria-label="Photos in this collection"></div>
+  </div>
   <footer class="site-footer">FD PHOTOGRAPHY &copy; 2026 — BAJMC × FD Collaboration</footer>
   <script>
     const nav = document.querySelector('.site-nav');
@@ -70,7 +66,14 @@
       const isOpen = nav.classList.toggle('open');
       menuButton.setAttribute('aria-expanded', String(isOpen));
     });
+    document.querySelectorAll('.nav-links a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
   </script>
+  <script type="module" src="/site-gallery.js"></script>
   <script type="module" src="/site-nav-auth.js"></script>
 </body>
 </html>

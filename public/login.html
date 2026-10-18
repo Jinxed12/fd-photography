@@ -50,7 +50,7 @@
     <a class="back" href="/">Back to home</a>
   </main>
   <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+    import { getFirebaseApp } from '/site-firebase.js';
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 
     const form = document.querySelector('#login-form');
@@ -64,6 +64,7 @@
     }
 
     function getErrorMessage(code) {
+      if (code === 'auth/configuration-not-found') return 'Firebase Authentication is not configured for this project. Please contact support.';
       if (code === 'auth/invalid-credential' || code === 'auth/user-not-found' || code === 'auth/wrong-password') {
         return 'The email or password is incorrect.';
       }
@@ -73,9 +74,7 @@
 
     let auth;
     try {
-      const configResponse = await fetch('/__/firebase/init.json');
-      if (!configResponse.ok) throw new Error(`Firebase config request failed: ${configResponse.status}`);
-      auth = getAuth(initializeApp(await configResponse.json()));
+      auth = getAuth(await getFirebaseApp());
       onAuthStateChanged(auth, (user) => {
         if (user) window.location.replace('/');
       });

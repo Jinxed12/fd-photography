@@ -2,8 +2,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     // Public portfolio content is read through server routes backed by the
-    // Admin SDK. Keep portfolio writes disabled; account records below are
-    // the only documents clients can create directly.
+    // Admin SDK. Account records and contact messages are the only documents
+    // clients can create directly.
     match /looks/{lookId} {
       allow read: if true;
       allow write: if false;
@@ -56,6 +56,22 @@ service cloud.firestore {
         && request.resource.data.name is string
         && request.resource.data.name.size() > 0
         && request.resource.data.signupTime is timestamp;
+      allow read, update, delete: if false;
+    }
+
+    match /contactMessages/{messageId} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'email', 'message', 'createdAt'])
+        && request.resource.data.keys().hasAll(['name', 'email', 'message', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 100
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254
+        && request.resource.data.email.matches('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 10
+        && request.resource.data.message.size() <= 5000
+        && request.resource.data.createdAt == request.time;
       allow read, update, delete: if false;
     }
 

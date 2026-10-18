@@ -30,6 +30,8 @@
     .account-link { margin: 1rem 0 0; color: var(--muted); font-size: .9rem; text-align: center; }
     .account-link a { color: var(--accent); text-decoration: none; }
     .account-link a:hover { text-decoration: underline; }
+    #continue-home { margin-top: 1rem; text-align: center; }
+    #continue-home a { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -53,18 +55,21 @@
       <button id="submit-button" type="submit">Create account</button>
     </form>
     <p id="message" role="status" aria-live="polite"></p>
+    <p id="continue-home" hidden><a href="/">Continue to the portfolio</a></p>
     <p class="account-link">Already have an account? <a href="/login">Log in</a></p>
     <a class="back" href="/">Back to home</a>
   </main>
   <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+    import { getFirebaseApp } from '/site-firebase.js';
     import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
     import { getFirestore, addDoc, collection, doc, serverTimestamp, setDoc } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
 
     const form = document.querySelector('#signup-form');
     const button = document.querySelector('#submit-button');
     const message = document.querySelector('#message');
+    const continueHome = document.querySelector('#continue-home');
     let signupInProgress = false;
+    let accountCreated = false;
 
     function setMessage(text, success = false) {
       message.textContent = text;
@@ -72,6 +77,7 @@
     }
 
     function getErrorMessage(code) {
+      if (code === 'auth/configuration-not-found') return 'Firebase Authentication is not configured for this project. Please contact support.';
       if (code === 'auth/email-already-in-use') return 'An account already exists for this email.';
       if (code === 'auth/invalid-email') return 'Enter a valid email address.';
       if (code === 'auth/weak-password') return 'Choose a stronger password with at least 6 characters.';
@@ -80,13 +86,10 @@
 
     let services;
     try {
-      const configResponse = await fetch('/__/firebase/init.json');
-      if (!configResponse.ok) throw new Error(`Firebase config request failed: ${configResponse.status}`);
-      const config = await configResponse.json();
-      const app = initializeApp(config);
+      const app = await getFirebaseApp();
       services = { auth: getAuth(app), db: getFirestore(app) };
       onAuthStateChanged(services.auth, (user) => {
-        if (user && !signupInProgress) window.location.replace('/');
+        if (user && !signupInProgress && !accountCreated) window.location.replace('/');
       });
     } catch (error) {
       console.error('Unable to initialize Firebase signup:', error);
@@ -114,7 +117,16 @@
       setMessage('');
       signupInProgress = true;
       try {
-        const { user } = await createUserWithEmailAndPassword(services.auth, email, password);
+        let user;
+        try {
+          ({ user } = await createUserWithEmailAndPassword(services.auth, email, password));
+        } catch (error) {
+          console.error('Unable to create Firebase account:', error);
+          setMessage(getErrorMessage(error.code));
+          return;
+        }
+
+        accountCreated = true;
         const userData = {
           uid: user.uid,
           name,
@@ -123,17 +135,22 @@
           role: 'user',
           status: 'active',
         };
-        await setDoc(doc(services.db, 'users', user.uid), userData);
-        await addDoc(collection(services.db, 'signups'), {
-          uid: user.uid,
-          name,
-          email,
-          signupTime: serverTimestamp(),
-        });
+        try {
+          await setDoc(doc(services.db, 'users', user.uid), userData);
+          await addDoc(collection(services.db, 'signups'), {
+            uid: user.uid,
+            name,
+            email,
+            signupTime: serverTimestamp(),
+          });
+        } catch (error) {
+          console.error('Account created, but profile data could not be saved:', error);
+          setMessage('Your account was created, but we could not save all profile details. You are signed in and can continue to the portfolio.', true);
+          form.hidden = true;
+          continueHome.hidden = false;
+          return;
+        }
         window.location.replace('/');
-      } catch (error) {
-        console.error('Signup error:', error);
-        setMessage(getErrorMessage(error.code));
       } finally {
         button.disabled = false;
         button.textContent = 'Create account';

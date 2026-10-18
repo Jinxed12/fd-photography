@@ -9,6 +9,8 @@ import { auth, db } from '@/lib/firebase';
 
 function getAuthErrorMessage(error) {
   switch (error.code) {
+    case 'auth/configuration-not-found':
+      return 'Firebase Authentication is not configured for this project. Please contact support.';
     case 'auth/email-already-in-use':
       return 'An account already exists for this email.';
     case 'auth/invalid-email':
@@ -29,6 +31,8 @@ export default function SignupPage() {
     confirmPassword: '',
   });
   const [loading, setLoading] = useState(false);
+  const [accountCreated, setAccountCreated] = useState(false);
+  const [success, setSuccess] = useState('');
   const [error, setError] = useState(
     !auth || !db ? 'Account services are not configured for this environment.' : ''
   );
@@ -67,8 +71,18 @@ export default function SignupPage() {
 
     setLoading(true);
 
+    let user;
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, email, formData.password);
+      ({ user } = await createUserWithEmailAndPassword(auth, email, formData.password));
+    } catch (authError) {
+      console.error('Unable to create Firebase account:', authError);
+      setError(getAuthErrorMessage(authError));
+      setLoading(false);
+      return;
+    }
+
+    setAccountCreated(true);
+    try {
       const userData = {
         uid: user.uid,
         name,
@@ -85,12 +99,19 @@ export default function SignupPage() {
         email,
         signupTime: serverTimestamp(),
       });
+    } catch (profileError) {
+      console.error('Account created, but profile data could not be saved:', profileError);
+      setSuccess('Your account was created, but we could not save all profile details. You are signed in and can continue to the portfolio.');
+      setLoading(false);
+      return;
+    }
 
+    try {
       await signOut(auth);
       router.push('/login?created=1');
-    } catch (signupError) {
-      console.error('Signup error:', signupError);
-      setError(getAuthErrorMessage(signupError));
+    } catch (signOutError) {
+      console.error('Account created, but sign-out failed:', signOutError);
+      setSuccess('Your account and profile were created, but we could not sign you out. Continue to the portfolio while signed in.');
     } finally {
       setLoading(false);
     }
@@ -104,8 +125,9 @@ export default function SignupPage() {
         <p className="mt-2 text-center text-sm text-gray-600">Save your place in the lookbook community.</p>
 
         {error && <div role="alert" className="mt-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
+        {success && <div role="status" className="mt-6 rounded-lg border border-pink-200 bg-pink-50 px-4 py-3 text-sm text-pink-800">{success}<Link href="/" className="mt-3 block font-semibold underline">Continue to the portfolio</Link></div>}
 
-        <form onSubmit={handleSignup} className="mt-8 space-y-5">
+        {!accountCreated && <form onSubmit={handleSignup} className="mt-8 space-y-5">
           <div>
             <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700">Full name</label>
             <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} autoComplete="name" required disabled={loading} className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-pink-500 focus:ring-2 focus:ring-pink-200" />
@@ -125,7 +147,7 @@ export default function SignupPage() {
           <button type="submit" disabled={loading} className="w-full rounded-lg bg-pink-600 px-4 py-3 font-semibold text-white hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-50">
             {loading ? 'Creating account...' : 'Create account'}
           </button>
-        </form>
+        </form>}
 
         <p className="mt-6 text-center text-sm text-gray-600">Already have an account? <Link href="/login" className="font-semibold text-pink-600 hover:text-pink-700">Log in</Link></p>
       </div>
